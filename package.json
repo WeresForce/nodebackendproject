@@ -1,12 +1,25 @@
 {
   "name": "nodebackendproject",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start_server": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Anthony G.",
   "license": "ISC",
-  "description": ""
+  "description": "My node backend",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeresForce/nodebackendproject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WeresForce/nodebackendproject/issues"
+  },
+  "homepage": "https://github.com/WeresForce/nodebackendproject#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }

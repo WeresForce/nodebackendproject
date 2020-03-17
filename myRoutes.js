@@ -37,12 +37,12 @@ const requestHandler = (reqest,responce) =>{
                 responce.write("<html>");
                 responce.write("<head><title>Task List:</title></head>");
                 for (let task of tasks){
-                    responce.write(`<p>${task}</p></br>`)
+                    responce.write(`<p>${task}</p></br>`);
                 }
                 responce.write("</html>");
                 return responce.end();
             }
-        })
+        });
     }
 
     if (url === '/taskCreate' && method ==='POST'){
@@ -60,7 +60,7 @@ const requestHandler = (reqest,responce) =>{
                     throw err;
                 }
                 else{
-                    console.log(`Task ${jsonTaskname} is added to file ${fileName}`)
+                    console.log(`Task ${jsonTaskname} is added to file ${fileName}`);
                 }
             });
         });
