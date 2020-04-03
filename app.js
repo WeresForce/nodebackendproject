@@ -22,7 +22,7 @@ app.use(shopRoutes);
 
 app.use('/',(req, res, next)=>{
     res.status(404);
-    res.render('PageNotFound');
+    res.render('PageNotFound',{pageTitle:'404: Page Not Found'});
     //res.sendFile(path.join(rootDir,'views','PageNotFound.html'));
 });
 

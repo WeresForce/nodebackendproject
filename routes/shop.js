@@ -10,7 +10,10 @@ const adminData = require('../routes/admin');
 router.get('/',(req,res,next)=>{
     const products = adminData.products;
 
-    res.render('shop',{prods: products, docTitle: 'Dynamic shop'});
+    res.render('shop',{  pageTitle: 'Product List',
+                         prods: products,
+                         docTitle: 'Dynamic shop',
+                         path:'/'});
     
 });
 

@@ -10,11 +10,11 @@
 }
 
 .form-control input {
-    border: 1px solid #a1a1a1;
+    border: 1px solid #5a81bd;
     font: inherit;
     border-radius: 2px;
 }
 
 .form-control input:focus {
-    outline-color: #00695c;
+    outline-color: #2870db;
 }
