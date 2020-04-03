@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fe287267-ac6d-4ee6-bace-3ccec931b671" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/PageNotFound.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/PageNotFound.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/add-product.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/add-product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/shop.html" afterDir="false" />
-    </list>
+    <list default="true" id="fe287267-ac6d-4ee6-bace-3ccec931b671" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +57,7 @@
       <updated>1583779658053</updated>
       <workItem from="1583779659648" duration="5743000" />
       <workItem from="1584380177221" duration="7132000" />
+      <workItem from="1585674544552" duration="605000" />
     </task>
     <servers />
   </component>
@@ -76,7 +69,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
