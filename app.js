@@ -3,27 +3,24 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const errorController = require('./controllers/error');
 const rootDir = require('./utils/path');
 
 const app = express();
 
-app.set('view engine', 'pug');
+
+app.set('view engine', 'ejs');
 app.set('views','views');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use('/admin',adminData.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 
-
-app.use('/',(req, res, next)=>{
-    res.status(404);
-    res.render('PageNotFound',{pageTitle:'404: Page Not Found'});
-    //res.sendFile(path.join(rootDir,'views','PageNotFound.html'));
-});
+app.use(errorController.getPageNotFound);
 
 app.listen(3555);

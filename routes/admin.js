@@ -1,26 +1,13 @@
 const express = require('express');
 const path = require('path');
 
-const rootDir = require('../utils/path');
+const productsController = require('../controllers/products');
 
 const router = express.Router();
 
-let products = [];
 
+router.get('/add-product',productsController.getAddProduct);
 
-router.get('/add-product',(req,res,next)=>{  
-    console.log('I amd Add product get listener');
-    res.render('add-product',{pageTitle:'Add-Products',path:'/admin/add-product/'});
-    //res.sendFile(path.join(rootDir,'views','add-product.html'));
-});
+router.post('/add-product',productsController.postAddproduct);
 
-router.post('/add-product',(req,res,next)=>{
-    console.log(`Pushing ${req.body.title} to products`);
-       products.push({title: req.body.title});
-
-       res.render('add-product',{pageTitle:'Add products'});
-    //res.sendFile(path.join(rootDir,'views','add-product.html'));
-});
-
-exports.routes = router;
-exports.products = products;
+module.exports = router;
