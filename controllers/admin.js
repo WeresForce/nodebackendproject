@@ -1,7 +1,6 @@
 const Product = require('../models/product');
 
 exports.getAddProduct = (req,res,next)=>{  
-    console.log('I amd Add product get listener');
     res.render('admin/add-product',{pageTitle:'Add-Products',
     path:'/admin/add-product/',
     productCSS: true,
@@ -11,7 +10,14 @@ exports.getAddProduct = (req,res,next)=>{
 };
 
 exports.postAddproduct = (req,res,next)=>{
-    const product = new Product(req.body.title);
+    const title = req.body.title;
+    const imageUrl = req.body.imageUrl;
+    const description = req.body.description;
+    const price = req.body.price;
+    const product = new Product(title,
+                                imageUrl,
+                                description,
+                                price);
     product.save();
     console.log(`Pushing ${req.body.title} to products`);
     res.redirect('/');

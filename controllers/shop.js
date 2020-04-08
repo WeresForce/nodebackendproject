@@ -8,7 +8,7 @@ exports.getIndex = (req,res,next)=>{
                             });
 
     }); 
-}
+};
 
 exports.getProducts = (req,res,next)=>{
      Product.fetchAll((products)=>{
@@ -38,8 +38,8 @@ exports.getCheckout = (req, res, next) =>{
     res.render('shop/checkout',{
                                 pageTitle: 'Checkout',
                                 path: '/checkout'
-    })
-}
+    });
+};
 
 
 
