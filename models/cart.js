@@ -10,6 +10,17 @@ const p = path.join(
 
 class Cart{
 
+    static getCart(callback) {
+        fs.readFile(p, (err, fileContent) => {
+          const cart = JSON.parse(fileContent);
+          if (err) {
+            callback(null);
+          } else {
+            callback(cart);
+          }
+        });
+      }
+
     static addProduct(id, productPrice){
         //Fetch previous cart
         fs.readFile(p,(err,fileContent)=>{
@@ -38,11 +49,38 @@ class Cart{
                 console.log(err);
             });
 
-        });
-
-        //Analyze => Find existing product
-        //Add new product or increase the quantity
+        });       
+        
     }
+
+    static deleteProduct(id, productPrice){
+            fs.readFile(p,(err,fileContent) =>{
+                
+                if (err){
+                    return;                 
+                }
+                else{
+                    const currentCart = JSON.parse(fileContent);
+                    const updatedCart = {...currentCart};
+
+                    const product = updatedCart.products.find( prod => prod.id === id);
+
+                    if (!product) {
+                        return;
+                    }
+
+                    const productQty = product.qty;
+                    updatedCart.totalPrice = updatedCart.totalPrice - productPrice*productQty;
+
+                    updatedCart.products = updatedCart.products.filter(prod => prod.id != id);  
+                    fs.writeFile(p,JSON.stringify(updatedCart),(err)=> {
+                        if (err) {
+                            throw err;
+                        }
+                    });
+                }
+            });
+        }
 
 }
 
