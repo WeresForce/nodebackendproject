@@ -8,7 +8,7 @@ const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
 const rootDir = require('./utils/path');
 
-const db = require('./utils/database');
+const sequilize = require('./utils/database');
 
 const app = express();
 
@@ -21,7 +21,14 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-
 app.use(errorController.getPageNotFound);
 
-app.listen(3555);
+sequilize.sync()
+.then(result =>{
+    //console.log(result);
+    app.listen(3555);
+})
+.catch(err => {
+    console.log(err);
+});
+
