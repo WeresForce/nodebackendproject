@@ -8,8 +8,9 @@ const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
 const rootDir = require('./utils/path');
 
-const app = express();
+const db = require('./utils/database');
 
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views','views');
