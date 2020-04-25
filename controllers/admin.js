@@ -68,7 +68,6 @@ exports.postEditProduct = (req,res, next) =>{
                         return product.save();
                     })
                     .then( result =>{
-                        console.log(result);
                         res.redirect('/admin/products');
                     })
                     .catch(err => {console.log(err);
@@ -81,7 +80,9 @@ exports.postDeleteProduct = (req,res,next)=>{
                             .then(product => {
                                 product.destroy();                                
                             })
-                            .then(res.redirect('/admin/products'))
+                            .then(() =>{
+                                res.redirect('/admin/products');
+                            })
                             .catch(err => {console.log(err);});
 };
 

@@ -204,6 +204,11 @@
             color: white;
           }
 
+          .btn.danger {
+            color: red;
+            border-color: red;
+          }
+
           @media (min-width: 768px) {
             .main-header__nav {
               display: flex;
