@@ -38,24 +38,26 @@
             display: flex;
             align-items: center;
         }
-        .main-header__nav{
-            height: 100%;
-            display: flex;
-            align-items: center;
+        .main-header__nav {
+          height: 100%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
-        .main-header__item-list{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
+        
+        .main-header__item-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
         }
-
-        .main-header__item{
-
-            padding: 0;
-            margin: 0 1rem;
+        
+        .main-header__item {
+          margin: 0 1rem;
+          padding: 0;
         }
-
+        
         .main-header__item a{
             text-decoration: none;
             color: whitesmoke;
