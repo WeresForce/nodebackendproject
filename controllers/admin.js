@@ -93,7 +93,7 @@ exports.getAdminProducts = (req, res, next)=>{
                 res.render('admin/products', {
                     prods: products,
                     pageTitle: 'Admin Products View',
-                    path: '/admin/products'
+                    path: '/admin/products/'
                 });
             })
         .catch(err =>{console.log(err);});
