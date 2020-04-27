@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -26,6 +27,7 @@ app.set('views','views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname,'public')));
+app.use(session({secret: 'theTestSecret', resave: false, saveUninitialized: false}));
 
 app.use((req, res, next) => {
     User.findByPk(1)
