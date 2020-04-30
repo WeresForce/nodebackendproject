@@ -23,6 +23,13 @@
             <li class="main-header__item">
                 <a class="<%= path==='/admin/products/' ? 'active' : '' %>" href="/admin/products">Admin Product</a>
             </li>
+            <ul class="main-header__item-list">
+                <li class="main-header__item">
+                    <form action="/logout" method="POST">
+                    <button class="btn" type="submit">Logout</button>
+                    </form>
+                </li>
+            </ul>
             <% } else {%>
             <ul class="main-header__item-list">
                 <li class="main-header__item">
@@ -30,6 +37,7 @@
                 </li>
             </ul>
             <% } %>
+            
         </ul>
     </nav>
 </header>

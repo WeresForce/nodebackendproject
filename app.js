@@ -2,7 +2,10 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+
 const session = require('express-session');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -13,6 +16,9 @@ const errorController = require('./controllers/error');
 const rootDir = require('./utils/path');
 
 const sequilize = require('./utils/database');
+let myStore = new SequelizeStore({
+    db:sequilize
+});
 const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
@@ -27,16 +33,29 @@ app.set('views','views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname,'public')));
-app.use(session({secret: 'theTestSecret', resave: false, saveUninitialized: false}));
+app.use(
+    session(
+        {   secret: 'theTestSecret',
+            resave: false, 
+            saveUninitialized: false, 
+            store: myStore
+    }));
 
-app.use((req, res, next) => {
-    User.findByPk(1)
-            .then(user => {
-                req.user = user;
-                next();
-    })
-    .catch(err => {console.log(err);});
-});
+    app.use((req, res, next) => {
+        //creates a User instance based on the user of current session
+        const sessionUser = User.build({...req.session.sessionUser});
+        req.user = sessionUser;
+        next();
+      });
+
+// app.use((req, res, next) => {
+//     User.findByPk(1)
+//             .then(user => {
+//                 req.user = user;
+//                 next();
+//     })
+//     .catch(err => {console.log(err);});
+// });
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
@@ -55,9 +74,12 @@ User.hasMany(Order);
 Order.belongsToMany(Product,{through: OrderItem});
 Product.belongsToMany(Order,{through: OrderItem});
 
-sequilize
+
 //{force: true} forces recreate
-.sync()
+myStore.sync().then(()=>{
+    return sequilize    
+    .sync();
+})
 .then(result =>{
     return User.findByPk(1);
 })
