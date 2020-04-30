@@ -42,9 +42,12 @@ app.use(
     }));
 
     app.use((req, res, next) => {
+
+        if(!req.session.sessionUser){
+            return next();
+        }
         //creates a User instance based on the user of current session
-        const sessionUser = User.build({...req.session.sessionUser});
-        req.user = sessionUser;
+        req.user = User.build({...req.session.sessionUser});        
         next();
       });
 
