@@ -4,31 +4,40 @@
 <body>
     <%- include('../includes/navigation.ejs')%>
 
-    <main>
-        <% if (orders.lengh <= 0) {%>
-            <h1>This is orders page</h1>
-        <% }  else {%>
+    <main class="detail-page">
+        <div class="detail-page__title">
+            <h1>Orders</h1>
+        </div>
 
-            <ul>
-                <% orders.forEach(order =>{%>
-                    <li>
-                        <h1>#<%= order.id %></h1>
-                        <ul>    
-                            <% order.products.forEach(item =>{ %>
-                                <li><%= item.title %> (<%= item.orderItem.quantity %>)</li>
-                                
+        <div class="container">
+            <div class="detail-page__body">
+                 <% if (orders.lengh <= 0) {%>
+                 <h1>This is orders page</h1>
+                 <% }  else {%>
 
-                           <% })%>
+                 <ul class="cart__item-list">
+                     <% orders.forEach(order =>{%>
+                     <li class="cart__item">
+                         <div class="cart__item-number">
+                             <p>#<%= order.id %></p>
+                         </div>
+                         
+                         <ul class="cart__item-title">
+                             <% order.products.forEach(item =>{ %>
+                             <li><%= item.title %> (<%= item.orderItem.quantity %>)</li>
+                             <% })%>
 
-                        </ul>
-                    </li>
+                         </ul>
+                     </li>
 
-                <% });%>
+                     <% });%>
 
 
-            </ul>
+                 </ul>
 
-        <% } %>
+                 <% } %>
+            </div>
+        </div>
     </main>
 </body>
 
