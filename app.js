@@ -47,7 +47,8 @@ app.use(
             return next();
         }
         //creates a User instance based on the user of current session
-        req.user = User.build({...req.session.sessionUser});        
+        req.user = User.build({...req.session.sessionUser});
+                
         next();
       });
 
@@ -79,22 +80,22 @@ Product.belongsToMany(Order,{through: OrderItem});
 
 
 //{force: true} forces recreate
-myStore.sync().then(()=>{
+myStore.sync({force: true}).then(()=>{
     return sequilize    
     .sync();
 })
-.then(result =>{
-    return User.findByPk(1);
-})
-.then(user => {
-    if(!user){
-        return User.create({name: 'FirstUser', email:'test@test.com'});
-    }
-    return Promise.resolve(user);
-})
-.then(user =>{
-    return user.createCart();
-})
+// .then(result =>{
+//     return User.findByPk(1);
+// })
+// .then(user => {
+//     if(!user){
+//         return User.create({name: 'FirstUser', email:'test@test.com'});
+//     }
+//     return Promise.resolve(user);
+// })
+// .then(user =>{
+//     return user.createCart();
+// })
 .then( user =>{
     app.listen(3555);
 })
