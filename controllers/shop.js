@@ -1,7 +1,14 @@
 const Product = require('../models/product');
-// const Cart = require('../models/cart');
 
-// const Order = require('../models/order');
+const nodemailer = require('nodemailer');
+const sendGridtransport = require('nodemailer-sendgrid-transport');
+
+const transporter = nodemailer.createTransport(sendGridtransport({
+  auth: {
+    api_key: 'pubkey-c19db9bedad5be56f21fae9cc326e057'
+
+  }
+}))
 
 exports.getIndex = (req,res,next)=>{
   Product.findAll()
@@ -138,6 +145,13 @@ exports.postOrder = (req,res,next) =>{
                             });
         })
           .then(result =>{
+            transporter.sendMail({
+              to: 'anthony.weres.force@gmail.com',
+              from: 'travelAgency@parus.com',
+              subject: 'Trying mail send here',
+              html : '<h1>You have posted cart!!!</h1>'
+              
+            });
             fetchedCart.setProducts(null);
           })
             .then(() =>{
