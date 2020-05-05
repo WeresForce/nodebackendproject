@@ -10,6 +10,7 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
+const miscRoutes = require('./routes/misc');
 
 
 const errorController = require('./controllers/error');
@@ -63,6 +64,7 @@ app.use(
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+app.use(miscRoutes);
 app.use(authRoutes);
 
 app.use(errorController.getPageNotFound);
