@@ -27,6 +27,14 @@
                 <li class="main-header__item">
                     <a class="<%= path==='/admin/products/' ? 'active' : '' %>" href="/admin/products">Admin Product</a>
                 </li>
+
+                <li class="main-header__item">
+                    <a class="<%= path==='/contactus' ? 'active' : '' %>" href="/contactus">Contact Us</a>
+                </li>
+
+                <li class="main-header__item">
+                    <a class="<%= path==='/aboutus' ? 'active' : '' %>" href="/aboutus">About Us</a>
+                </li>
                 <li class="main-header__item">
                     <form action="/logout" method="POST">
                     <button class="btn" type="submit">Logout</button>
