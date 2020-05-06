@@ -904,3 +904,8 @@ form .row:first-child .floating-label-form-group {
 .detail-page__body.is--second .btn {
   margin-top: 0!important;
 }
+
+.is--product .detail-page__title {
+  padding-bottom: 60px;
+  min-height: 242px;
+}
