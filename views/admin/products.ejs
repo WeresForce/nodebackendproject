@@ -15,10 +15,10 @@
                         <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
                          <div class="card__actions">
                              <a href="/admin/edit-product/<%= product.id %>?edit=true" class="btn btn-edit"><img
-                                     src="../img/Edit_Notepad_Icon.svg" alt="" class="btn__img"></a>
+                                     src="../../img/Edit_Notepad_Icon.svg" alt="" class="btn__img"></a>
                              <form action="/admin/delete-product" method="POST">
                                  <button class="btn btn-remove" type="submit"><img class="btn__img"
-                                         src="../img/interface.svg"
+                                         src="../../img/interface.svg"
                                          alt=""></button>
                                  <input type="hidden" value="<%= product.id %>" name="productId">
                              </form>

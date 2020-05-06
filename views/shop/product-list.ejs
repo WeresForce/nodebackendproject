@@ -5,7 +5,13 @@
     <body>
     <%- include('../includes/navigation.ejs')%>
 
-            <main>
+            <main class="detail-page is--product">
+                <div class="detail-page__title">
+                    <h1>Products</h1>
+                    <div class="detail-page-bg">
+                        <img src="../../img/caralog10.jpg" alt="" role="presentation">
+                    </div>
+                </div>
                 <div class="container">
                     <% if (prods.length > 0){ %>
                         <div class="grid">
