@@ -896,3 +896,11 @@ form .row:first-child .floating-label-form-group {
   justify-content: space-between;
   align-items: center;
 }
+
+.detail-page__body.is--second {
+  margin-top: 20px;
+}
+
+.detail-page__body.is--second .btn {
+  margin-top: 0!important;
+}
