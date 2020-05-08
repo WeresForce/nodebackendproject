@@ -1,14 +1,15 @@
 const Product = require('../models/product');
 
 const nodemailer = require('nodemailer');
-const sendGridtransport = require('nodemailer-sendgrid-transport');
+// const sendGridtransport = require('nodemailer-sendgrid-transport');
 
-const transporter = nodemailer.createTransport(sendGridtransport({
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
   auth: {
-    api_key: 'pubkey-c19db9bedad5be56f21fae9cc326e057'
-
+    user: 'testerinterVarsity@gmail.com',
+    pass: 'Th3p@ssw0rd'
   }
-}))
+});
 
 exports.getIndex = (req,res,next)=>{
   Product.findAll()
@@ -129,13 +130,14 @@ exports.postCartDeleteItem = (req,res,next) => {
 };
 
 exports.postOrder = (req,res,next) =>{
+  let productList;
   let fetchedCart;
     req.user.getCart()
       .then( cart =>{
         fetchedCart = cart;
         return cart.getProducts();
       })
-        .then(products =>{
+        .then(products =>{   
           return req.user.createOrder()
                             .then(order =>{
                               order.addProducts(products.map(product =>{
@@ -144,14 +146,24 @@ exports.postOrder = (req,res,next) =>{
                               }));
                             });
         })
-          .then(result =>{
-            transporter.sendMail({
-              to: 'anthony.weres.force@gmail.com',
-              from: 'travelAgency@parus.com',
-              subject: 'Trying mail send here',
-              html : '<h1>You have posted cart!!!</h1>'
-              
-            });
+        .then(result =>{
+          var mailOptions = {
+            from: 'youremail@gmail.com',
+            to: req.user.email,
+            subject: 'Sending Email using Node.js',
+            text: 'You have ordered ' + productList + '. Thank You!'
+          };
+
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+
+        })
+          .then(result =>{     
             fetchedCart.setProducts(null);
           })
             .then(() =>{
