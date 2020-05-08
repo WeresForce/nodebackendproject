@@ -36,28 +36,28 @@
                             us a message and we will try to get back to you within 24 hours!</i></p>
 
 
-                    <form name="sentMessage" id="contactForm" novalidate="">
+                    <form name="sentMessage" id="contactForm" method="POST" novalidate="">
                         <div class="control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <input type="text" class="form-control" placeholder="Name" id="name" required=""
+                                <input type="text" class="form-control" name="name" placeholder="Name" id="name" required=""
                                     data-validation-required-message="Please enter your name." aria-invalid="false">
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <input type="email" class="form-control" placeholder="Email Address" id="email"
+                                <input type="email" class="form-control" name="email" placeholder="Email Address" id="email"
                                     required="" data-validation-required-message="Please enter your email address.">
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required=""
+                                <input type="tel" class="form-control" name="phone" placeholder="Phone Number" id="phone" required=""
                                     data-validation-required-message="Please enter your phone number.">
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" required=""
+                                <textarea rows="5" class="form-control" name="message" placeholder="Message" id="message" required=""
                                     data-validation-required-message="Please enter a message."></textarea>
                             </div>
                         </div>

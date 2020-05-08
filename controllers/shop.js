@@ -1,13 +1,12 @@
 const Product = require('../models/product');
 
 const nodemailer = require('nodemailer');
-// const sendGridtransport = require('nodemailer-sendgrid-transport');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'testerinterVarsity@gmail.com',
-    pass: 'Th3p@ssw0rd'
+    user: 'youremail@mail.com',
+    pass: 'yourpassword'
   }
 });
 
@@ -53,16 +52,6 @@ exports.getProduct = (req,res,next) =>{
         });
       
     }).catch(err => {console.log(err);});
-
-// Product.findByPk(prodId)
-//     .then((product) =>{
-//         res.render('shop/product-detail',{
-//           pageTitle:`Product ${product.title} Details`,
-//           path: '/products',
-//           product: product
-//           });
-//       })
-//     .catch(err => console.log(err));
 };
 
 exports.getCart = (req, res, next) => {
@@ -130,40 +119,49 @@ exports.postCartDeleteItem = (req,res,next) => {
 };
 
 exports.postOrder = (req,res,next) =>{
-  let productList;
+  let productList = '';
   let fetchedCart;
     req.user.getCart()
       .then( cart =>{
         fetchedCart = cart;
         return cart.getProducts();
       })
-        .then(products =>{   
+        .then(products =>{             
           return req.user.createOrder()
                             .then(order =>{
                               order.addProducts(products.map(product =>{
                                 product.orderItem = {quantity: product.cartItem.quantity};
                                 return product;
                               }));
-                            });
+                            })
         })
         .then(result =>{
-          var mailOptions = {
-            from: 'youremail@gmail.com',
-            to: req.user.email,
-            subject: 'Sending Email using Node.js',
-            text: 'You have ordered ' + productList + '. Thank You!'
-          };
-
-          transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-              console.log(error);
-            } else {
-              console.log('Email sent: ' + info.response);
-            }
-          });
-
-        })
-          .then(result =>{     
+          req.user.getCart()
+                    .then(cart => {
+                      return cart.getProducts()
+                                            .then(products =>{
+                                              //let productList =[];
+                                              products.forEach(product => {
+                                                productList+=product.title +'('+product.cartItem.quantity+')';
+                                              }); 
+              })
+          })
+        })     
+          .then(result =>{  
+            var mailOptions = {
+              from: 'youremail@gmail.com',
+              to: req.user.email,
+              subject: 'Order confirmed',
+              text: 'Thank you for shopping with us!' + productList
+            };
+  
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+              } else {
+                console.log('Email sent: ' + info.response + ' ' + productList);
+              }
+            });
             fetchedCart.setProducts(null);
           })
             .then(() =>{
