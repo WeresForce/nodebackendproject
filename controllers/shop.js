@@ -2,11 +2,14 @@ const Product = require('../models/product');
 
 const nodemailer = require('nodemailer');
 
+const ejs = require( 'ejs');
+const htmlPdf = require('html-pdf');
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'youremail@mail.com',
-    pass: 'yourpassword'
+    user: 'yourEmail@gmail.com',
+    pass: 'yourPassword'
   }
 });
 
@@ -121,12 +124,21 @@ exports.postCartDeleteItem = (req,res,next) => {
 exports.postOrder = (req,res,next) =>{
   let productList = '';
   let fetchedCart;
+
+  let fullName = req.body.fullname;
+  let email = req.body.email;
+  let peoplecount = req.body.peoplecount;
+
+  
     req.user.getCart()
       .then( cart =>{
         fetchedCart = cart;
         return cart.getProducts();
       })
-        .then(products =>{             
+        .then(products =>{      
+          products.forEach(product => {
+            productList+=product.title +'('+product.cartItem.quantity+')';
+          });       
           return req.user.createOrder()
                             .then(order =>{
                               order.addProducts(products.map(product =>{
@@ -135,33 +147,41 @@ exports.postOrder = (req,res,next) =>{
                               }));
                             })
         })
-        .then(result =>{
-          req.user.getCart()
-                    .then(cart => {
-                      return cart.getProducts()
-                                            .then(products =>{
-                                              //let productList =[];
-                                              products.forEach(product => {
-                                                productList+=product.title +'('+product.cartItem.quantity+')';
-                                              }); 
-              })
-          })
-        })     
-          .then(result =>{  
-            var mailOptions = {
-              from: 'youremail@gmail.com',
-              to: req.user.email,
-              subject: 'Order confirmed',
-              text: 'Thank you for shopping with us!' + productList
-            };
-  
-            transporter.sendMail(mailOptions, function(error, info){
-              if (error) {
-                console.log(error);
-              } else {
-                console.log('Email sent: ' + info.response + ' ' + productList);
-              }
-            });
+        .then(productListLocal =>{
+          var mailOptions = {
+            from: 'youremail@gmail.com',
+            //to: req.user.email,
+            to: email,
+            subject: 'Order confirmed',
+            text: `Dear ${fullName}, thank you for ordering tour(s) ${productList}for ${peoplecount} person`,
+            html: `<html>
+            <head>
+              <title>Your ticket</title>
+            </head>
+            <body>
+            <p>Dear ${fullName}, thank you for ordering tour(s) ${productList}for ${peoplecount}</p>
+              <h1>Order content</h1>
+              <table style="width: 100%;">
+                <tr>
+                  <th>Item list</th>                    
+                </tr>
+                <tr>
+                  <td >${productList}</td>
+                </tr>
+              </table>
+            </body>
+          </html>`
+          };
+
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response + ' ' + productList);
+            }
+          });
+        })
+          .then(result =>{              
             fetchedCart.setProducts(null);
           })
             .then(() =>{

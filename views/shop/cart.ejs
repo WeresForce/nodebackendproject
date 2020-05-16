@@ -29,12 +29,32 @@
                             <input type="hidden" value="<%= p.id %>" name="productId">
                             <button class="btn danger" type="submit"><img src="../img/interface.svg" alt=""></button>
                         </form>
-                    </li>
+                    </li>   
                     <% }) %>
                 </ul>
 
-
                 <form action="/create-order" method="POST">
+
+                    <div class="form-control">
+                        <label for="title">Full Name</label>
+                        <input type="text" name="fullname" id="fullname">
+                    </div>
+            
+                    <div class="form-control">
+                        <label for="title">Email</label>
+                        <input type="email" name="email" id="email" >
+                    </div>            
+            
+                    <div class="form-control">
+                        <label for="title">People count</label>
+                        <input type="number" name="peoplecount" id="peoplecount" step="1">
+                    </div>          
+                    
+                    <div class="form-control">
+                        <label for="title">Additional Notes</label>
+                        <textarea name="notes" id="notes" rows="5"></textarea>
+                    </div>
+
                     <button type="submit" class="btn-link">Order Now</button>
                 </form>
                 <% } else { %>
