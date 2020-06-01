@@ -170,7 +170,26 @@ exports.postOrder = (req,res,next) =>{
                 </tr>
               </table>
             </body>
-          </html>`
+          </html>`,
+          attachments:[
+            {filename:'ticket.html',content:`<html>
+            <head>
+              <title>Your ticket</title>
+            </head>
+            <body>
+            <p>Dear ${fullName}, thank you for ordering tour(s) ${productList}for ${peoplecount}</p>
+              <h1>Order content</h1>
+              <table style="width: 100%;">
+                <tr>
+                  <th>Item list</th>                    
+                </tr>
+                <tr>
+                  <td >${productList}</td>
+                </tr>
+              </table>
+            </body>
+          </html>`}
+          ]
           };
 
           transporter.sendMail(mailOptions, function(error, info){
